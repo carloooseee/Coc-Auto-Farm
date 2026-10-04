@@ -2,6 +2,7 @@ from pywinauto import Application
 import pyautogui
 import cv2
 import numpy as np
+import time
 
 
 class WindowManager:
@@ -40,6 +41,7 @@ class WindowManager:
     def capture_window(self):
         #Capture the window content as a BGR image (OpenCV format)
         self.focus_window()
+        time.sleep(0.5)
         self.get_rect()
         screenshot = pyautogui.screenshot(region=(self.win_left, self.win_top, self.win_width, self.win_height))
         frame = cv2.cvtColor(np.array(screenshot), cv2.COLOR_RGB2BGR)

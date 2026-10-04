@@ -23,6 +23,16 @@ logger = logging.getLogger(__name__)
 
 
 def main():
+    # Make the process DPI-aware to prevent coordinates scaling mismatch on Windows
+    import ctypes
+    try:
+        ctypes.windll.shcore.SetProcessDpiAwareness(2) # PROCESS_PER_MONITOR_DPI_AWARE
+    except Exception:
+        try:
+            ctypes.windll.user32.SetProcessDPIAware()
+        except Exception:
+            pass
+
     setup_logging()
 
     config = AppConfig()
@@ -36,13 +46,13 @@ def main():
     try:
         window = WindowManager(config)
     except Exception as e:
-        logger.error(f"Failed to connect to LDPlayer window: {e}")
+        logger.error(f"Failed to connect to window: {e}")
         root = tk.Tk()
         root.withdraw()
         messagebox.showerror(
             "Connection Error",
-            f"Could not connect to LDPlayer window.\n\n{e}\n\n"
-            "Please start LDPlayer and make sure its title contains 'LDPlayer'."
+            f"Could not connect to Clash of Clans window.\n\n{e}\n\n"
+            f"Please make sure Clash of Clans is running and its window title is exactly '{config.window_title_re}'."
         )
         sys.exit(1)
 

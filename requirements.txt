@@ -5,7 +5,7 @@ numpy>=1.24.0
 easyocr>=1.7.0
 
 # Window automation and control
-pywinauto>=0.9.3
+pywinauto>=0.6.8
 pyautogui>=0.9.53
 
 # Keyboard input

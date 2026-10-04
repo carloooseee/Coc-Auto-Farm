@@ -4,7 +4,7 @@ from dataclasses import dataclass
 @dataclass
 class AppConfig:
     model_path: str = "models/best.pt"
-    window_title_re: str = ".*LDPlayer.*"
+    window_title_re: str = "Clash of Clans"
     conf: float = 0.5
     gpu: bool = True
     max_retries: int = 4

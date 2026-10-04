@@ -121,6 +121,14 @@ class CocBot:
                 # Convert to absolute screen coords exactly like the old notebook
                 return cx + self.window.win_left, cy + self.window.win_top
 
+        # Save the last captured frame to diagnose detection issues
+        try:
+            import cv2
+            cv2.imwrite(f"failed_detect_{class_name}.png", frame)
+            logger.info(f"Saved failed detection frame to failed_detect_{class_name}.png")
+        except Exception as e:
+            logger.warning(f"Could not save failed detection frame: {e}")
+
         raise RuntimeError(
             f"detect() could not find '{class_name}' after {max_retries} attempts"
         )
